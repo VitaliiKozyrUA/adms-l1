@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<VBox prefHeight="535.0" prefWidth="546.0" spacing="10.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1" fx:controller="com.kozyr.adms.l1.ui.AppController">
+   <HBox spacing="10.0" VBox.vgrow="NEVER">
+      <children>
+         <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+            <children>
+      
+                  <Label fx:id="welcomeText" text="Матриця А:" VBox.vgrow="ALWAYS" />
+               <TextArea layoutX="10.0" layoutY="27.0" promptText="Елементи матриці" VBox.vgrow="ALWAYS" />
+            </children></VBox>
+         <VBox prefWidth="100.0" HBox.hgrow="ALWAYS">
+            <children>
+               <Label fx:id="welcomeText1" text="Матриця B:" VBox.vgrow="ALWAYS" />
+               <HBox spacing="10.0" VBox.vgrow="ALWAYS">
+                  <children>
+                     <TextArea prefWidth="1.0" promptText="Елементи матриці" HBox.hgrow="ALWAYS" />
+                     <VBox prefWidth="1.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                        <children>
+                           <HBox fillHeight="false" spacing="10.0" VBox.vgrow="NEVER">
+                              <children>
+                                 <VBox HBox.hgrow="NEVER">
+                                    <children>
+                                       <Label text="Рядки:" VBox.vgrow="NEVER" />
+                                       <Spinner VBox.vgrow="NEVER" />
+                                    </children>
+                                 </VBox>
+                                 <VBox HBox.hgrow="NEVER">
+                                    <children>
+                                       <Label text="Стовпці:" VBox.vgrow="NEVER" />
+                                       <Spinner VBox.vgrow="NEVER" />
+                                    </children>
+                                 </VBox>
+                              </children></HBox>
+                           <Button mnemonicParsing="false" prefWidth="150.0" text="Згенерувати" VBox.vgrow="ALWAYS" />
+                           <CheckBox mnemonicParsing="false" text="матриця A" />
+                           <CheckBox layoutX="10.0" layoutY="97.0" mnemonicParsing="false" text="матриця B" />
+                        </children>
+                     </VBox>
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
+      </children>
+   </HBox>
+   <HBox spacing="10.0" VBox.vgrow="NEVER">
+      <children>
+         <CheckBox mnemonicParsing="false" text="Формувати протокол обчислень" />
+         <CheckBox layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="на екран" />
+         <CheckBox layoutX="221.0" layoutY="10.0" mnemonicParsing="false" text="в файл" />
+      </children>
+   </HBox>
+   <HBox prefWidth="200.0" spacing="10.0" VBox.vgrow="ALWAYS">
+      <children>
+         <VBox prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+            <children>
+               <Button mnemonicParsing="false" prefWidth="300.0" text="Знайти ранг матриці" VBox.vgrow="ALWAYS" />
+               <HBox alignment="CENTER_LEFT" spacing="10.0" VBox.vgrow="ALWAYS">
+                  <children>
+                     <Label alignment="CENTER_LEFT" contentDisplay="TOP" text="Ранг матриці:" HBox.hgrow="NEVER" />
+                     <TextField HBox.hgrow="ALWAYS" />
+                  </children>
+               </HBox>
+               <HBox spacing="10.0" VBox.vgrow="ALWAYS">
+                  <children>
+                     <VBox prefHeight="200.0" prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+                        <children>
+                           <Button mnemonicParsing="false" prefWidth="150.0" text="Обчислити СЛАУ" VBox.vgrow="ALWAYS" />
+                           <RadioButton mnemonicParsing="false" text="1-м методом" />
+                           <RadioButton layoutX="10.0" layoutY="45.0" mnemonicParsing="false" text="2-м методом" />
+                           <RadioButton layoutX="10.0" layoutY="72.0" mnemonicParsing="false" text="методом Гаусса" />
+                        </children></VBox>
+                     <VBox prefHeight="200.0" prefWidth="100.0" HBox.hgrow="ALWAYS">
+                        <children>
+                           <Label text="Матриця X:" />
+                           <TextArea VBox.vgrow="ALWAYS" />
+                        </children></VBox>
+                  </children>
+               </HBox>
+            </children>
+         </VBox>
+         <VBox prefWidth="100.0" spacing="10.0" HBox.hgrow="ALWAYS">
+            <children>
+               <Button mnemonicParsing="false" prefWidth="300.0" text="Знайти обернену матрицю" />
+               <Label text="Обернена матриця:" />
+               <TextArea VBox.vgrow="ALWAYS" />
+            </children>
+         </VBox>
+      </children></HBox>
+    <padding>
+        <Insets bottom="10.0" left="10.0" right="10.0" top="10.0" />
+    </padding>
+</VBox>
