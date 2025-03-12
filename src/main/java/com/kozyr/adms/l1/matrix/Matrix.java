@@ -1,7 +1,5 @@
 package com.kozyr.adms.l1.matrix;
 
-import com.kozyr.adms.l1.utils.Logger;
-
 import java.util.*;
 import java.util.function.Function;
 import java.util.stream.Collectors;
@@ -89,7 +87,6 @@ public class Matrix {
         matrix.fill(this);
 
         matrix.setEntry(pivotRow, pivotColumn, 1.0);
-
         var pivot = getEntry(pivotRow, pivotColumn);
 
         for (int i = 0; i < matrix.getColumnCount(); i++) {
