@@ -1,9 +1,5 @@
 package com.kozyr.adms.l1.ui;
 
-import com.kozyr.adms.l1.matrix.Matrix;
-import com.kozyr.adms.l1.matrix.RectangularMatrix;
-import com.kozyr.adms.l1.matrix.SquareMatrix;
-import com.kozyr.adms.l1.utils.DoubleUtils;
 import com.kozyr.adms.l1.utils.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -22,42 +18,37 @@ import java.util.ResourceBundle;
 
 public class AppController implements Initializable {
     @FXML
-    private Spinner<Integer> rowCountSpinner;
-
-    @FXML
-    private Spinner<Integer> columnCountSpinner;
-
-    @FXML
-    private CheckBox generateACheckBox;
-
-    @FXML
-    private CheckBox generateBCheckBox;
-
-    @FXML
     private CheckBox screenProtocolCheckbox;
 
     @FXML
     private CheckBox fileProtocolCheckbox;
 
     @FXML
-    private TextArea squareMatrixTextArea;
+    private Spinner<Integer> variableCountSpinner;
 
     @FXML
-    private TextArea rectangularMatrixTextArea;
+    private RadioButton minRadioButton;
 
     @FXML
-    private TextArea inverseMatrixTextArea;
+    private RadioButton maxRadioButton;
 
     @FXML
-    private TextField matrixRankTextField;
+    private TextField matrixTargetFunctionTextField;
 
     @FXML
-    private TextArea soleSolutionSetTextArea;
+    private TextField xTextField;
+
+    @FXML
+    private TextField zTextField;
+
+    @FXML
+    private TextArea limitationsTextArea;
 
     @FXML
     @Override
     public void initialize(URL location, ResourceBundle resources) {
         initializeDimensionSpinners();
+        initializeMinMax();
         Thread.setDefaultUncaughtExceptionHandler((t, e) -> {
             var alert = new Alert(Alert.AlertType.ERROR, e.getCause().getCause().getMessage(), ButtonType.OK);
             alert.show();
@@ -66,21 +57,14 @@ public class AppController implements Initializable {
 
     private void initializeDimensionSpinners() {
         var rowCountSpinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 10, 1);
-        rowCountSpinner.setValueFactory(rowCountSpinnerFactory);
-
-        var columnCountSpinnerFactory = new SpinnerValueFactory.IntegerSpinnerValueFactory(1, 5, 1);
-        columnCountSpinner.setValueFactory(columnCountSpinnerFactory);
+        variableCountSpinner.setValueFactory(rowCountSpinnerFactory);
     }
 
-    @FXML
-    private void onGenerateMatricesButtonAction(ActionEvent ignoredEvent) {
-        if (generateACheckBox.isSelected()) {
-            generateRandomSquareMatrix(rowCountSpinner.getValue());
-        }
-
-        if (generateBCheckBox.isSelected()) {
-            generateRandomRectangularMatrix(rowCountSpinner.getValue(), columnCountSpinner.getValue());
-        }
+    private void initializeMinMax() {
+        ToggleGroup toggleGroup = new ToggleGroup();
+        minRadioButton.setToggleGroup(toggleGroup);
+        maxRadioButton.setToggleGroup(toggleGroup);
+        toggleGroup.selectToggle(minRadioButton);
     }
 
     @FXML
@@ -125,57 +109,12 @@ public class AppController implements Initializable {
     }
 
     @FXML
-    private void onFindInverseMatrixButtonAction(ActionEvent ignoredEvent) {
-        var matrix = Matrix.fromText(squareMatrixTextArea.getText(), DoubleUtils::stringToDouble);
-        var squareMatrix = SquareMatrix.create(matrix.getRowCount());
-        squareMatrix.fill(matrix);
-        var inverseMatrix = squareMatrix.findInverse();
-        inverseMatrixTextArea.setText(inverseMatrix.toText(value -> String.format("%.2f", value)));
+    private void onExampleButtonAction(ActionEvent ignoredEvent) {
+
     }
 
     @FXML
-    private void onCalculateRankButtonAction(ActionEvent ignoredEvent) {
-        var matrix = Matrix.fromText(rectangularMatrixTextArea.getText(), DoubleUtils::stringToDouble);
-        var rectangularMatrix = RectangularMatrix.create(matrix.getRowCount(), matrix.getColumnCount());
-        rectangularMatrix.fill(matrix);
-        var rank = rectangularMatrix.rank();
-        matrixRankTextField.setText(String.valueOf(rank));
-    }
+    private void onFindOptimalSolutionAction(ActionEvent ignoredEvent) {
 
-    @FXML
-    private void onCalculateSoleButtonAction(ActionEvent ignoredEvent) {
-        var matrix = Matrix.fromText(squareMatrixTextArea.getText(), DoubleUtils::stringToDouble);
-        var squareMatrix = SquareMatrix.create(matrix.getRowCount());
-        squareMatrix.fill(matrix);
-
-        matrix = Matrix.fromText(rectangularMatrixTextArea.getText(), DoubleUtils::stringToDouble);
-        var rectangularMatrix = RectangularMatrix.create(matrix.getRowCount(), matrix.getColumnCount());
-        rectangularMatrix.fill(matrix);
-
-        StringBuilder solutionSetText = new StringBuilder();
-        for (var value : squareMatrix.sole(rectangularMatrix)) {
-            solutionSetText.append(String.format("%.2f", value)).append("\n");
-        }
-        soleSolutionSetTextArea.setText(solutionSetText.toString());
-    }
-
-    private void generateRandomSquareMatrix(int dimension) {
-        var matrix = SquareMatrix.create(dimension);
-        for (int rowIndex = 0; rowIndex < dimension; rowIndex++) {
-            for (int colIndex = 0; colIndex < dimension; colIndex++) {
-                matrix.setEntry(rowIndex, colIndex, Math.random() * 89 + 10);
-            }
-        }
-        squareMatrixTextArea.setText(matrix.toText(value -> String.format("%.2f", value)));
-    }
-
-    private void generateRandomRectangularMatrix(int rowCount, int columnCount) {
-        var matrix = RectangularMatrix.create(rowCount, columnCount);
-        for (int rowIndex = 0; rowIndex < rowCount; rowIndex++) {
-            for (int colIndex = 0; colIndex < columnCount; colIndex++) {
-                matrix.setEntry(rowIndex, colIndex, Math.random() * 89 + 10);
-            }
-        }
-        rectangularMatrixTextArea.setText(matrix.toText(value -> String.format("%.2f", value)));
     }
 }
